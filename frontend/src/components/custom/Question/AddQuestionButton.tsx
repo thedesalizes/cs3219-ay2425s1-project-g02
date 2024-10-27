@@ -4,10 +4,11 @@ import { useState } from "react";
 import AddQuestionDialog from "./AddQuestionDialog";
 
 interface AddQuestionButtonProps {
-  isAdmin: Boolean; // Accepts admin status as a prop
+  onCreate: () => void;
+  isAdmin: Boolean;
 }
 
-function AddQuestionButton({ isAdmin }: AddQuestionButtonProps) {
+const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ onCreate, isAdmin }) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
     // Don't render anything if not an admin
@@ -27,9 +28,13 @@ function AddQuestionButton({ isAdmin }: AddQuestionButtonProps) {
       >
         <Plus />
       </Button>
-      <AddQuestionDialog open={openDialog} setOpen={setOpenDialog} />
+      <AddQuestionDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        onCreate={onCreate}
+      />
     </>
   );
-}
+};
 
 export default AddQuestionButton;
